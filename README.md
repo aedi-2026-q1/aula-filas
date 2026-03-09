@@ -1,75 +1,79 @@
 # Aula: Filas
 
-Código gerado na aula sobre filas.
+Codigo da aula sobre sobre filas, com duas abordagens:
 
-A atualizar após a aula...
+- baseada em lista encadeada (implementada via composição e delegação)
+- baseada em array circular
 
-## Estrutura
+## Estrutura do projeto
 
-```
+```text
 .
 ├── README.md
 ├── src/
-│   └── main.c
-├── build/           # executaveis compilados (criado apos o build)
+│   ├── main.c
+│   ├── queue-circular-array/
+│   │   ├── Makefile
+│   │   ├── main.c
+│   │   ├── queue.c
+│   │   ├── queue.h
+│   │   ├── element.c
+│   │   └── element.h
+│   └── queue-linked-list-composition/
+│       ├── Makefile
+│       ├── main.c
+│       ├── queue.c
+│       ├── queue.h
+│       └── inc/
+│           ├── element.c
+│           ├── element.h
+│           ├── linked_list.c
+│           └── linked_list.h
 └── .devcontainer/
     ├── Dockerfile
     └── devcontainer.json
 ```
 
-## Compilacao
+## Conteudo de cada exemplo
 
-Use um compilador C (clang ou gcc). No diretorio do projeto:
+### `src/queue-circular-array`
+
+Implementa a fila usando um vetor com indices `front` e `back` e controle de `size`/`capacity`.
+
+### `src/queue-linked-list-composition`
+
+Implementa a fila por composição com uma lista encadeada.
+
+- `Queue` contem um ponteiro para `LinkedList`
+- `enqueue` insere no fim da lista
+- `dequeue` remove do inicio da lista
+- inclui testes simples em `main.c` para insercao e remocao
+
+## Como compilar e executar
+
+Cada implementacao possui seu proprio `Makefile`.
+
+### Fila com vetor circular
 
 ```bash
-mkdir -p build
-clang -Wall -pedantic -o build/app src/main.c
+cd src/queue-circular-array
+make main
+./build/main
 ```
 
-## Execucao
+### Fila com lista encadeada
 
 ```bash
-./build/app
+cd src/queue-linked-list-composition
+make
+./build/main
 ```
 
-## Saida esperada
+## Observacoes
 
-```
-Hello, World!
-```
-
-## Como usar
-
-- Edite [src/main.c](src/main.c) para iniciar seus exercicios.
-- Recompile apos cada mudanca.
+- `src/main.c` permanece como arquivo base simples da pasta `src`.
+- Recomenda-se usar `valgrind` para verificar vazamentos de memoria nos exemplos compilados.
 
 ## Ambiente de desenvolvimento (opcional)
 
-Este projeto inclui configuracao de Dev Container para VS Code em [.devcontainer](.devcontainer). O container usa Alpine Linux e instala `clang` e `valgrind`.
-
-### GitHub Codespaces
-
-Voce pode usar o Codespaces para abrir o projeto no navegador:
-
-1. No GitHub, clique em **Code**.
-2. Selecione a aba **Codespaces**.
-3. Clique em **Create codespace on main**.
-
-Ao iniciar, o ambiente ja vem configurado pelo dev container.
-
-### Docker
-
-Caso tenha Docker instalado na sua máquina, você pode usar o dev container localmente:
-
-```bash
-docker build -t aed-i-c -f .devcontainer/Dockerfile .
-docker run --rm -it -v "$PWD":/work -w /work aed-i-c
-```
-
-Dentro do container, compile e execute normalmente:
-
-```bash
-mkdir -p build
-clang -Wall -pedantic -o build/app src/main.c
-./build/app
-```
+O projeto inclui configuracao de Dev Container para VS Code em `.devcontainer`, com ferramentas como compilador C e `valgrind`.
