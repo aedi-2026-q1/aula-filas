@@ -53,7 +53,7 @@ Implementa a fila por composição com uma lista encadeada.
 
 Cada implementacao possui seu proprio `Makefile`.
 
-### Fila com vetor circular
+### Fila com array circular
 
 ```bash
 cd src/queue-circular-array
